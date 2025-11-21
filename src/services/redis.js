@@ -32,7 +32,8 @@ class RedisService {
         password: config.redis.password,
       });
 
-      // Suppress error events
+      // Suppress error events during connection attempt
+      // Errors are handled by the catch block below
       client.on('error', () => {});
 
       // Set a timeout for connection

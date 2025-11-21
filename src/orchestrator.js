@@ -90,13 +90,18 @@ export class ResearchOrchestrator {
   }
 
   shouldIterateBasedOnCritique(critique) {
-    // Simple heuristic - could be more sophisticated
+    // Evaluate critique to determine if iteration is needed
+    // This is a simple heuristic - could be enhanced with NLP or configurable criteria
     const critiqueLower = critique.toLowerCase();
-    return (
-      critiqueLower.includes('significant gap') ||
-      critiqueLower.includes('major limitation') ||
-      critiqueLower.includes('insufficient data')
-    );
+    const criticalKeywords = [
+      'significant gap',
+      'major limitation',
+      'insufficient data',
+      'critical flaw',
+      'requires more research',
+    ];
+    
+    return criticalKeywords.some(keyword => critiqueLower.includes(keyword));
   }
 
   async getResearchHistory() {

@@ -63,8 +63,22 @@ class SanityService {
   }
 
   async searchKnowledge(searchTerm) {
-    const query = `*[_type == "knowledge" && (title match "${searchTerm}*" || content match "${searchTerm}*")]`;
-    return await this.queryKnowledge(query);
+    // Use parameterized query to prevent injection
+    const query = `*[_type == "knowledge" && (title match $searchTerm || content match $searchTerm)]`;
+    const params = { searchTerm: `${searchTerm}*` };
+    
+    if (!this.client) {
+      console.warn('Sanity client not initialized');
+      return [];
+    }
+
+    try {
+      const results = await this.client.fetch(query, params);
+      return results;
+    } catch (error) {
+      console.error('Sanity query error:', error.message);
+      return [];
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 import { anthropicService } from '../services/anthropic.js';
 import { redisService } from '../services/redis.js';
+import { createHash } from 'crypto';
 
 export class BaseAgent {
   constructor(name, systemPrompt) {
@@ -72,14 +73,8 @@ export class BaseAgent {
   }
 
   hashInput(input) {
-    // Simple hash function for caching
-    let hash = 0;
-    for (let i = 0; i < input.length; i++) {
-      const char = input.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash;
-    }
-    return Math.abs(hash).toString(36);
+    // Use SHA-256 for better uniqueness and collision resistance
+    return createHash('sha256').update(input).digest('hex').substring(0, 16);
   }
 
   async getLearnings() {
