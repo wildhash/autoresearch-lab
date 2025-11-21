@@ -1,0 +1,32 @@
+{
+  "name": "autoresearch-lab",
+  "version": "1.0.0",
+  "description": "Autonomous AI researcher that hits APIs, runs experiments, and ships research reports in minutes",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node src/index.js",
+    "start": "node src/index.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "ai",
+    "research",
+    "autonomous",
+    "agents",
+    "claude"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0",
+    "redis": "^4.6.0",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.0",
+    "@sanity/client": "^6.8.0",
+    "aws-sdk": "^2.1500.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
