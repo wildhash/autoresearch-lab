@@ -127,8 +127,8 @@ export class ResearchOrchestrator {
       let critiqueObj;
       try {
         critiqueObj = typeof critique === 'string' ? JSON.parse(critique) : critique;
-      } catch {
-        // If not JSON, use the whole critique as learning
+      } catch (_parseError) {
+        // If not JSON, use the whole critique as learning (intentional fallback)
         await redisService.saveLearning(topic, critique);
         console.log(chalk.green(`[Memory] Saved learning for topic: ${topic}`));
         return;

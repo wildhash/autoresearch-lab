@@ -50,7 +50,18 @@ export async function runExecutor(plan) {
   console.log('⚡️ Executor is working...');
   
   try {
-    const planObj = typeof plan === 'string' ? JSON.parse(plan) : plan;
+    let planObj;
+    try {
+      planObj = typeof plan === 'string' ? JSON.parse(plan) : plan;
+    } catch (parseError) {
+      console.error('Failed to parse plan:', parseError.message);
+      return {
+        completed: false,
+        error: 'Invalid plan format: ' + parseError.message,
+        results: [],
+      };
+    }
+    
     const results = [];
 
     for (const step of planObj.steps || []) {

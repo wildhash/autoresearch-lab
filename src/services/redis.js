@@ -89,13 +89,17 @@ class RedisService {
       exists: async (key) => storage.has(key) ? 1 : 0,
       expire: async (key, seconds) => 1,
       keys: async (pattern) => {
-        const regex = new RegExp(pattern.replace('*', '.*'));
+        // Use global replace to handle all asterisks, not just the first one
+        const regex = new RegExp(pattern.replace(/\*/g, '.*'));
         return Array.from(storage.keys()).filter(key => regex.test(key));
       },
       lPush: async (key, ...values) => {
         if (!lists.has(key)) lists.set(key, []);
         const list = lists.get(key);
-        list.unshift(...values);
+        // Reverse and push individually for better performance with large arrays
+        for (let i = values.length - 1; i >= 0; i--) {
+          list.unshift(values[i]);
+        }
         return list.length;
       },
       lRange: async (key, start, stop) => {
