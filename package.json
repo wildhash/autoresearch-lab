@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node src/index.js",
     "start": "node src/index.js",
-    "test": "echo \"No tests specified\" && exit 0"
+    "test": "node test/test-basic.js"
   },
   "keywords": [
     "ai",
@@ -20,11 +20,12 @@
   "license": "MIT",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.27.0",
-    "redis": "^4.6.0",
-    "axios": "^1.6.0",
-    "dotenv": "^16.3.0",
     "@sanity/client": "^6.8.0",
-    "aws-sdk": "^2.1500.0"
+    "aws-sdk": "^2.1500.0",
+    "axios": "^1.12.0",
+    "chalk": "^5.6.2",
+    "dotenv": "^16.3.0",
+    "redis": "^4.6.0"
   },
   "engines": {
     "node": ">=18.0.0"

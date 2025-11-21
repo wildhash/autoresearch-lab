@@ -34,6 +34,42 @@ node examples/multiple-research.js
 - Accessing research history from Redis
 - Summarizing results across multiple queries
 
+### 3. Reflexion Loop (`reflexion-loop.js`) ⭐ NEW
+
+Demonstrates the Reflexion Loop - how the system learns from past research and improves over time.
+
+**Usage:**
+```bash
+node examples/reflexion-loop.js
+```
+
+**What it demonstrates:**
+- How the system stores learnings from research
+- How past learnings inform future research
+- Self-improvement through critical reflection
+- Building a knowledge base automatically
+- Memory and context persistence
+
+**Note:** Requires Anthropic API key to run.
+
+### 4. Mock Data Demo (`mock-data-demo.js`) ⭐ NEW
+
+Shows how the mock data system enables development without API credentials.
+
+**Usage:**
+```bash
+node examples/mock-data-demo.js
+```
+
+**What it demonstrates:**
+- Available mock data sources (TRM Labs, Finster AI, Senso)
+- How mock data is used as fallback
+- Executing research with mock data
+- Transitioning to real APIs
+- Benefits of the mock data system
+
+**Note:** Works without any API keys!
+
 ## Prerequisites
 
 Before running examples:
@@ -44,6 +80,8 @@ Before running examples:
    ANTHROPIC_API_KEY=your_key_here
    ```
 3. Install dependencies: `npm install`
+
+**Note:** Examples 1, 2, and 3 require an Anthropic API key. Example 4 (Mock Data Demo) works without any credentials.
 
 ## Creating Your Own
 
@@ -84,3 +122,4 @@ myResearch();
 - Enable `enableReflexion: true` for better quality through self-critique
 - Store results in Redis to build a knowledge base over time
 - Chain related queries to build comprehensive understanding of a topic
+- Use mock data for development and testing without API costs

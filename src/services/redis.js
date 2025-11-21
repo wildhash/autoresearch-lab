@@ -68,14 +68,45 @@ class RedisService {
   }
 
   getMockClient() {
+    // In-memory storage for mock mode
+    const storage = new Map();
+    const lists = new Map();
+    
     return {
-      get: async (key) => null,
-      set: async (key, value) => 'OK',
-      setEx: async (key, ttl, value) => 'OK',
-      del: async (key) => 1,
-      exists: async (key) => 0,
+      get: async (key) => storage.get(key) || null,
+      set: async (key, value) => {
+        storage.set(key, value);
+        return 'OK';
+      },
+      setEx: async (key, ttl, value) => {
+        storage.set(key, value);
+        return 'OK';
+      },
+      del: async (key) => {
+        storage.delete(key);
+        return 1;
+      },
+      exists: async (key) => storage.has(key) ? 1 : 0,
       expire: async (key, seconds) => 1,
-      keys: async (pattern) => [],
+      keys: async (pattern) => {
+        // Use global replace to handle all asterisks, not just the first one
+        const regex = new RegExp(pattern.replace(/\*/g, '.*'));
+        return Array.from(storage.keys()).filter(key => regex.test(key));
+      },
+      lPush: async (key, ...values) => {
+        if (!lists.has(key)) lists.set(key, []);
+        const list = lists.get(key);
+        // Reverse and push individually for better performance with large arrays
+        for (let i = values.length - 1; i >= 0; i--) {
+          list.unshift(values[i]);
+        }
+        return list.length;
+      },
+      lRange: async (key, start, stop) => {
+        const list = lists.get(key) || [];
+        if (stop === -1) return list.slice(start);
+        return list.slice(start, stop + 1);
+      },
       quit: async () => {},
     };
   }
@@ -135,6 +166,49 @@ class RedisService {
       console.error('Get all learnings error:', error.message);
       return [];
     }
+  }
+
+  // Topic-based learning methods for Reflexion Loop
+  async getLearnings(topic) {
+    try {
+      const key = `learnings:${topic}`;
+      const learnings = await this.client.lRange(key, 0, -1);
+      return learnings.map(l => {
+        try {
+          return JSON.parse(l);
+        } catch {
+          return l;
+        }
+      });
+    } catch (error) {
+      console.error('Get learnings error:', error.message);
+      return [];
+    }
+  }
+
+  async saveLearning(topic, insight) {
+    try {
+      const key = `learnings:${topic}`;
+      const learning = {
+        insight,
+        timestamp: new Date().toISOString(),
+      };
+      await this.client.lPush(key, JSON.stringify(learning));
+      console.log(`💾 Saved learning for topic: ${topic}`);
+      return true;
+    } catch (error) {
+      console.error('Save learning error:', error.message);
+      return false;
+    }
+  }
+
+  // Cache result with key and data
+  async cacheResult(key, data) {
+    await this.cache(key, data, 3600);
+  }
+
+  async getCachedResult(key) {
+    return await this.getCached(key);
   }
 }
 
