@@ -4,7 +4,7 @@ Autonomous AI researcher that hits APIs, runs experiments, and ships research re
 
 ## Overview
 
-AutoResearch Lab is a multi-agent system that conducts autonomous research using Claude AI agents. It orchestrates five specialized agents that work together to plan, execute, analyze, critique, and report on research questions.
+AutoResearch Lab is a multi-agent system that conducts autonomous research using Claude AI agents. It orchestrates specialized agents that work together to plan, execute, analyze, critique, and report on research questions.
 
 ### ⭐ Key Features
 
@@ -14,6 +14,21 @@ AutoResearch Lab is a multi-agent system that conducts autonomous research using
 - **💾 Persistent Learning** - Stores insights in Redis for future research
 - **🔌 Flexible API Integration** - Seamless fallback to mock data when APIs unavailable
 - **⚡ Command-Line Interface** - Easy to use: `node src/index.js "Your question"`
+
+### 🧠 NEW: ASI Demonstration Module
+
+**Cutting-edge implementation of recursive self-improvement and autonomous research:**
+
+- **MetaCognitionEngine** - Recursive self-reflection on reasoning (up to 5 levels deep)
+- **EpistemicStateTracker** - Bayesian uncertainty quantification and calibration
+- **SelfDirectedLearner** - Autonomous curriculum generation and knowledge gap identification
+- **AlignmentGuard** - Constitutional AI principles and safety verification
+- **RecursiveResearchOrchestrator** - Unified coordination of all ASI components
+
+```bash
+# Run the ASI demonstration
+node examples/asi-demo.js "How can recursive self-improvement be made safe?"
+```
 
 ## Stack
 
@@ -167,6 +182,13 @@ autoresearch-lab/
 │   │   ├── ReporterAgent.js
 │   │   ├── prompts.js   # System prompts for all agents
 │   │   └── index.js     # Agent wrapper functions
+│   ├── asi/             # 🧠 ASI Demonstration Module
+│   │   ├── MetaCognitionEngine.js    # Recursive self-reflection
+│   │   ├── EpistemicStateTracker.js  # Uncertainty quantification
+│   │   ├── SelfDirectedLearner.js    # Autonomous curriculum
+│   │   ├── AlignmentGuard.js         # Safety verification
+│   │   ├── RecursiveResearchOrchestrator.js  # Unified coordination
+│   │   └── index.js     # ASI module exports
 │   ├── services/        # External service integrations
 │   │   ├── anthropic.js # Claude API with callClaude helper
 │   │   ├── redis.js     # Redis with learning storage
@@ -179,8 +201,10 @@ autoresearch-lab/
 ├── config/
 │   └── index.js         # Configuration management
 ├── test/
-│   └── test-basic.js    # Test suite
+│   ├── test-basic.js    # Core test suite
+│   └── test-asi.js      # ASI component tests
 ├── examples/            # Example scripts
+│   ├── asi-demo.js          # 🧠 ASI demonstration
 │   ├── reflexion-loop.js    # Demonstrates learning system
 │   ├── mock-data-demo.js    # Shows mock data usage
 │   ├── custom-research.js
@@ -252,6 +276,141 @@ npm test
 # Try examples
 node examples/mock-data-demo.js
 node examples/reflexion-loop.js
+```
+
+## 🧠 ASI Demonstration Module
+
+The ASI (Artificial Superintelligence) module demonstrates cutting-edge concepts in recursive self-improvement and autonomous research. This implementation showcases architectural principles for beneficial superintelligent systems.
+
+### Core Components
+
+#### MetaCognitionEngine
+Recursive self-reflection system that can think about its own thinking:
+- **Multi-level recursion** - Up to 5 levels of meta-cognitive analysis
+- **Cognitive bias detection** - Identifies confirmation bias, anchoring, Dunning-Kruger, etc.
+- **Reasoning strategy optimization** - Selects optimal approaches (Chain of Thought, Tree of Thoughts, etc.)
+- **Self-model generation** - Creates introspective analysis of its own reasoning patterns
+
+```javascript
+import { metaCognitionEngine } from './src/asi/index.js';
+
+const analysis = await metaCognitionEngine.analyzeReasoning(
+  "Your reasoning text here",
+  { domain: 'AI safety', purpose: 'research' }
+);
+```
+
+#### EpistemicStateTracker
+Uncertainty quantification and knowledge boundary management:
+- **Bayesian belief updating** - Updates beliefs based on new evidence
+- **Uncertainty decomposition** - Separates aleatoric, epistemic, and model uncertainty
+- **Knowledge boundary classification** - Tracks known knowns, known unknowns, unknown unknowns
+- **Calibration assessment** - Evaluates how well confidence matches accuracy
+
+```javascript
+import { epistemicStateTracker } from './src/asi/index.js';
+
+const analysis = await epistemicStateTracker.analyzeEpistemicState(
+  ["Claim 1", "Claim 2"],
+  { domain: 'research' }
+);
+```
+
+#### SelfDirectedLearner
+Autonomous curriculum generation and knowledge gap identification:
+- **Curriculum generation** - Creates learning paths for any goal
+- **Knowledge gap identification** - Finds what's missing to achieve understanding
+- **Active learning** - Selects queries that maximize information gain
+- **Knowledge synthesis** - Builds transferable knowledge structures
+
+```javascript
+import { selfDirectedLearner } from './src/asi/index.js';
+
+const curriculum = await selfDirectedLearner.generateCurriculum(
+  "Understand recursive self-improvement in AI",
+  { background: 'ML fundamentals' }
+);
+```
+
+#### AlignmentGuard
+Safety verification and value alignment system:
+- **Constitutional AI principles** - Enforces beneficence, honesty, corrigibility
+- **Deception detection** - Identifies misleading or manipulative patterns
+- **Corrigibility verification** - Ensures system remains controllable
+- **Impact assessment** - Evaluates potential consequences
+
+```javascript
+import { alignmentGuard } from './src/asi/index.js';
+
+const evaluation = await alignmentGuard.evaluateAlignment(
+  { action: "research proposal", content: "..." },
+  { context: 'AI research' }
+);
+```
+
+#### RecursiveResearchOrchestrator
+Unified coordination of all ASI components:
+- **7-phase research pipeline** - Question → Alignment → Acquisition → Reasoning → Meta-Reflection → Synthesis → Self-Improvement
+- **Recursive improvement** - System improves its own processes based on meta-analysis
+- **Integrated safety** - Alignment checks at every phase
+
+```javascript
+import { recursiveResearchOrchestrator } from './src/asi/index.js';
+
+const results = await recursiveResearchOrchestrator.conductRecursiveResearch(
+  "How can AI systems be made reliably beneficial?",
+  { maxIterations: 3, depthLimit: 5 }
+);
+```
+
+### Why This Matters for ASI
+
+This architecture demonstrates five key principles for beneficial superintelligent systems:
+
+1. **Recursive Self-Improvement** - The system can analyze and improve its own reasoning processes
+2. **Epistemic Humility** - Quantifies uncertainty and acknowledges knowledge boundaries
+3. **Autonomous Learning** - Identifies gaps and generates its own curriculum
+4. **Robust Alignment** - Safety checks integrated at every step, not bolted on
+5. **Value Integration** - Constitutional AI principles guide all reasoning
+
+### Running the ASI Demo
+
+```bash
+# Full demonstration
+node examples/asi-demo.js
+
+# With custom research question
+node examples/asi-demo.js "How can recursive self-improvement be made safe?"
+
+# Run ASI component tests
+node test/test-asi.js
+```
+
+### Architecture Diagram
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    RecursiveResearchOrchestrator                        │
+│                     (Unified Coordination Layer)                        │
+└─────────────────────────────────────────────────────────────────────────┘
+                                   │
+          ┌───────────────────────┼───────────────────────┐
+          │                       │                       │
+          ▼                       ▼                       ▼
+  ┌───────────────┐    ┌───────────────┐    ┌───────────────┐
+  │    Meta       │    │  Epistemic    │    │    Self       │
+  │  Cognition    │◄──►│    State      │◄──►│  Directed     │
+  │   Engine      │    │   Tracker     │    │   Learner     │
+  └───────┬───────┘    └───────┬───────┘    └───────┬───────┘
+          │                    │                    │
+          └────────────────────┼────────────────────┘
+                               │
+                               ▼
+                    ┌───────────────────┐
+                    │   Alignment       │
+                    │     Guard         │
+                    │  (Safety Layer)   │
+                    └───────────────────┘
 ```
 
 ## License
